@@ -9,7 +9,8 @@
 2.3 Open tzdataXXX.json in a text editor
 2.4 Prepend: timezoneJS.timezone.loadZoneDataFromObject(
 2.5 Append: );
-2.6 Save as tzdataXXX-t.js
+2.6 Prepend new line: timezoneJS.timezone.loadingScheme = timezoneJS.timezone.loadingSchemes.MANUAL_LOAD;
+2.7 Save as tzdataXXX-t.js
 
 3 Closure
 3.1 run: java -jar ./utils/closure/compiler.jar --js ./tzdataXXX-t.js --js_output_file ./tzdataXXX.js
