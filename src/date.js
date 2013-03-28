@@ -165,6 +165,11 @@
       success : opts.success
     });
   };
+  
+  timezoneJS.clockDiff = 0;
+  timezoneJS.syncClock = function(now) {
+    timezoneJS.clockDiff = (new Date()).getTime() - now;
+  };  
 
   // Constructor, which is similar to that of the native Date object itself
   timezoneJS.Date = function () {
@@ -197,7 +202,7 @@
     }
     switch (args.length) {
       case 0:
-        dt = new Date();
+        dt = new Date((new Date()).getTime() - timezoneJS.clockDiff);
         break;
       case 1:
         dt = new Date(args[0]);
@@ -340,6 +345,9 @@
       this.setUTCAttribute('month', month);
       if (date !== undefined) { this.setUTCAttribute('date', date); }
       return this.getTime();
+    },
+    setTimestampToNow: function() {
+      this.setTime((new Date()).getTime() - timezoneJS.clockDiff);
     },
     setUTCDate: function (date) {
       this.setUTCAttribute('date', date);
