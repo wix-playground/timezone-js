@@ -168,7 +168,10 @@
   
   timezoneJS.clockDiff = 0;
   timezoneJS.syncClock = function(now) {
-    timezoneJS.clockDiff = (new Date()).getTime() - now;
+  	var diff = (new Date()).getTime() - now;
+  	if ((timezoneJS.clockDiff === 0) || (Math.abs(timezoneJS.clockDiff) > Math.abs(diff))) {
+  	  timezoneJS.clockDiff = diff;
+  	}
   };  
 
   // Constructor, which is similar to that of the native Date object itself
