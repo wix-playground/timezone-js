@@ -33,6 +33,8 @@
  * Long Ho
  */
 
+ var __rule_cache = null;
+
  /*jslint laxcomma:true, laxbreak:true, expr:true*/
 (function () {
   // Standard initialization stuff to make sure the library is
@@ -794,6 +796,7 @@
         applicableRules = applicableRules.concat(findApplicableRules(year-1, _this.rules[ruleset]));
         applicableRules.sort(compareDates);
       }
+
       var pinpoint = _arrIndexOf.call(applicableRules, date);
       if (pinpoint > 1 && compareDates(date, applicableRules[pinpoint-1], applicableRules[pinpoint-2][1]) < 0) {
         //The previous rule does not really apply, take the one before that.
@@ -989,9 +992,11 @@
         }
       }
       var z = getZone(dt, tz);
+
       var off = z[0];
       //See if the offset needs adjustment.
-      var rule = getRule(dt, z, isUTC);
+      var rule = __rule_cache || getRule(dt, z, isUTC);
+      __rule_cache = rule;
       if (rule) {
         off = getAdjustedOffset(off, rule);
       }
